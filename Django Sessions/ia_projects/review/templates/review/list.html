@@ -1,0 +1,41 @@
+{% extends "review/base.html" %}
+{% block title %}All Caracters{% endblock %}
+{%block content %}
+<ul>
+    {% for review in reviews %}
+    <div class="card mb-3" style="max-width: 540px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img
+                    src="{{ review.image.url }}"
+                    class="img-fluid rounded-start"
+                    alt="img"
+                />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                <h5 class="card-title">{{review.name}}</h5>
+                <p class="card-text">{{review.content}}</p>
+                <p class="card-text">
+                    {% if review.id not in my_favorite %}
+                    <form action="{% url 'add-favorite' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="review_id" value="{{ review.id }}">
+                        <button type="submit" class="btn btn-light" >
+                            <span class="material-icons">favorite_border</span>
+                        </button>
+                    </form>
+                    {% else %}
+                    <a type="button" class="btn btn-light" href="/favorite-delete/{{ review.id }}">
+                        <span class="material-icons">favorite</span>
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</ul>
+<a href="{% url 'create-review' %}" class="link-primary">Create</a>
+
+{%endblock%}
