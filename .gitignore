@@ -133,3 +133,7 @@ mediafiles/
 awscliv2.zip
 countFiles.sh
 reporte.xls
+
+node_modules
+.env
+

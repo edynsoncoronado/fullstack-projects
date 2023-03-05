@@ -7,3 +7,4 @@
 - flask
 - docker
 - redis
+- node
